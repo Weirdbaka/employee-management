@@ -11,7 +11,7 @@ function AttendanceManager() {
   }, []);
 
   const fetchEmployees = async () => {
-    const res = await fetch("http://localhost:5000/employees");
+    const res = await fetch("${process.env.REACT_APP_API_URL}/employees");
     const data = await res.json();
     setEmployees(data);
   };
@@ -22,7 +22,7 @@ function AttendanceManager() {
 
   const markAttendance = async () => {
     for (const [employeeId, status] of Object.entries(attendance)) {
-      await fetch("http://localhost:5000/attendance", {
+      await fetch("${process.env.REACT_APP_API_URL}/attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ employeeId, date, status }),
@@ -32,7 +32,7 @@ function AttendanceManager() {
   };
 
   const viewAttendance = async () => {
-    const res = await fetch(`http://localhost:5000/attendance/${date}`);
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/attendance/${date}`);
     const data = await res.json();
     setRecords(data);
   };

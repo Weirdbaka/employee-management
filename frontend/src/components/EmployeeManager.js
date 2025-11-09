@@ -9,7 +9,7 @@ function EmployeeManager() {
 
   // Fetch all employees
   const fetchEmployees = async () => {
-    const res = await fetch("http://localhost:5000/employees");
+    const res = await fetch('${process.env.REACT_APP_API_URL}/employees');
     const data = await res.json();
     setEmployees(data);
   };
@@ -24,7 +24,7 @@ function EmployeeManager() {
 
     if (editingId) {
       // Update existing employee
-      await fetch(`http://localhost:5000/employees/${editingId}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -32,7 +32,7 @@ function EmployeeManager() {
       setEditingId(null);
     } else {
       // Add new employee
-      await fetch("http://localhost:5000/employees", {
+      await fetch("${process.env.REACT_APP_API_URL}/employees", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -45,7 +45,7 @@ function EmployeeManager() {
 
   // Delete employee
   const deleteEmployee = async (id) => {
-    await fetch(`http://localhost:5000/employees/${id}`, { method: "DELETE" });
+    await fetch(`${process.env.REACT_APP_API_URL}/employees/${id}`, { method: "DELETE" });
     fetchEmployees();
   };
 
